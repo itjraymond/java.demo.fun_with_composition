@@ -24,5 +24,6 @@ public class Composition {
                     .apply( (Integer y) -> y * 10.0 )
                     .apply(30)
         );
+        // '300.0' is the string value
     }
 }
