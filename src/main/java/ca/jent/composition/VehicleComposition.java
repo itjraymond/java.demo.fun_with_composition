@@ -1,6 +1,7 @@
 package ca.jent.composition;
 
-import java.awt.*;
+import java.awt.Color;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 
@@ -12,23 +13,27 @@ import java.util.function.Function;
 public class VehicleComposition {
 
 
-    public static Function<Color,Vehicle> carSupplier = Car::new;
-    public static Function<Color,Vehicle> motoSupplier = Moto::new;
+    private static Function<Color,Vehicle> carSupplier = Car::new;
+    private static Function<Color,Vehicle> motoSupplier = Moto::new;
+//    private static Function<Integer, List<Vehicle>> createVehicles = v ->
 
-    public static void main(String[] args) {
-
-        Function<Color,Vehicle> f;
-        Color color;
+    private static Function<Color,Vehicle> getRandomVehicle() {
 
         int v = ThreadLocalRandom.current().nextInt(0,10);
 
         if (v % 2 == 0) {
-            f = carSupplier;
-        } else {
-            f = motoSupplier;
+            return carSupplier;
         }
+        return motoSupplier;
 
-        v = ThreadLocalRandom.current().nextInt(0, 10);
+    }
+    public static void main(String[] args) {
+
+        Function<Color,Vehicle> f = getRandomVehicle();
+        Color color;
+
+
+        int v = ThreadLocalRandom.current().nextInt(0, 10);
         if (v % 2 == 0) {
             color = Color.BLUE;
         } else {
