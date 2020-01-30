@@ -21,7 +21,7 @@ public class Composition {
         System.out.println(
             Composition.<Integer, Double, String>higherCompose()
                     .apply( (Double x) -> "'" + x.toString() + "' is the string value" )
-                    .apply( (Integer y) -> y * 10.0)
+                    .apply( (Integer y) -> y * 10.0 )
                     .apply(30)
         );
     }
