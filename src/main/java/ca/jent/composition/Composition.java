@@ -17,6 +17,12 @@ public class Composition {
         return (Function<U,V> f) -> (Function<T,U> g) -> (T x) -> f.apply(g.apply(x));
     }
 
+    // For my personal taste, I prefer to order the function parameter as T -> U and then U -> V
+    // which return the final function type as: T -> V
+    static <T,U,V> Function<Function<T,U>, Function<Function<U,V>, Function<T,V>>> higherComposeOrd() {
+        return (Function<T,U> f) -> (Function<U,V> g) -> (T x) -> g.apply(f.apply(x));
+    }
+
     public static void main(String[] args) {
         System.out.println(
             Composition.<Integer, Double, String>higherCompose()
@@ -25,5 +31,14 @@ public class Composition {
                     .apply(30)
         );
         // '300.0' is the string value
+
+        System.out.println(
+            "My double is: " +
+            Composition.<String,Integer,Double>higherComposeOrd()
+                .apply( s -> Integer.valueOf(s) )
+                .apply( i -> i + 2.5 )
+                .apply("10")
+        );
+        // My double is: 12.5
     }
 }
