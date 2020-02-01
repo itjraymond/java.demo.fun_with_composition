@@ -1,4 +1,4 @@
-package ca.jent.composition;
+package ca.jent.composition.a01;
 
 import java.util.function.Function;
 

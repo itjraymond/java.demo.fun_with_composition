@@ -1,4 +1,4 @@
-package ca.jent.composition;
+package ca.jent.factories.a01;
 
 import java.awt.Color;
 import java.util.concurrent.ThreadLocalRandom;

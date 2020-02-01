@@ -1,4 +1,4 @@
-package ca.jent.composition;
+package ca.jent.factories.a01;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -13,10 +13,12 @@ import java.util.function.Supplier;
  *    be better if we could limit the registration process to be done only once so that it is not "pepered"
  *    everywhere in the code.
  * 3. We are working with String.  no no no :-)
+ * 4. API "bug".  As mentioned above, we allow the programmer to call register, then create, then register again.
+ *    We need a way to SEPARATE the registering step from the creation step => the Builder Pattern.
  *
- * What should we do?  Later, we will create a "Builder" (builder pattern)
+ * Later, we will create a "Builder" (builder pattern)
  *
- * Disclaimer:  Some ideas derives from Remi Forax Reloaded talk.
+ * Disclaimer:  Several ideas derives from Remi Forax Reloaded talk. This code is only for personal learning.
  */
 public class VehicleFactory_01 {
     private final Map<String,Supplier<Vehicle>> suppliers = new HashMap<>();
@@ -53,5 +55,17 @@ public class VehicleFactory_01 {
         } catch (IllegalStateException e) {
             System.out.println("EROOR: " + e.getMessage());
         }
+
+        // What if we want our factory to always return the same Black Truck instance?  Singleton
+        final Vehicle blackTruck = new Truck(Color.BLACK);
+        vehicleFactory.register("BlackTruck", () -> blackTruck);
+
+        Vehicle v1 = vehicleFactory.create("BlackTruck");
+        Vehicle v2 = vehicleFactory.create("BlackTruck");
+        assert v1 == v2;
+        if (v1 == v2) {
+            System.out.println(v1.whatAmI() + " and again " + v2.whatAmI() + " which is always the same truck.");
+        }
+
     }
 }
