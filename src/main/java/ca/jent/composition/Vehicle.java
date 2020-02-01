@@ -1,6 +1,7 @@
 package ca.jent.composition;
 
-import java.awt.*;
+import java.awt.Color;
+import java.util.function.Supplier;
 
 /**
  * Note: Bad idea to make an abstract class "public".  We will correct this later though as we evolve our example.
@@ -22,14 +23,33 @@ public abstract class Vehicle {
     }
 
     abstract String whatAmI();
+
+    public static Supplier<Vehicle> vehicleSupplier(Class clazz) {
+        if (Car.class.equals(clazz)) {
+            return Car::new;
+        } else if (Moto.class.equals(clazz)) {
+            return Moto::new;
+        }
+        throw new IllegalStateException("Unexpected value: " + clazz);
+    }
+
+    public static Supplier<Vehicle> coloredVehicleSupplier(Class clazz, Color color) {
+        if (Car.class.equals(clazz)) {
+            return () -> new Car(color);
+        } else if (Moto.class.equals(clazz)) {
+            return () -> new Moto(color);
+        }
+        throw new IllegalStateException("Unexpected value: " + clazz);
+    }
+
 }
 
 class Car extends Vehicle {
 
-    public Car() {
+    Car() {
         super();
     }
-    public Car(Color color) {
+    Car(Color color) {
         super(color);
     }
 
@@ -41,10 +61,10 @@ class Car extends Vehicle {
 
 class Moto extends Vehicle {
 
-    public Moto() {
+    Moto() {
         super();
     }
-    public Moto(Color color) {
+    Moto(Color color) {
         super(color);
     }
 
@@ -54,10 +74,13 @@ class Moto extends Vehicle {
     }
 }
 
+
 class ColorUtil {
     public static String toString(Color color) {
         if (color == Color.RED) return "Red";
         if (color == Color.BLUE) return "Blue";
-        return "Red";
+        if (color == Color.YELLOW) return "Yellow";
+        if (color == Color.GREEN) return "Green";
+        return "White";
     }
 }

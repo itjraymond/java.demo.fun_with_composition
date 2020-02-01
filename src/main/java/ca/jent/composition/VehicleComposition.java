@@ -1,7 +1,6 @@
 package ca.jent.composition;
 
 import java.awt.Color;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 import java.util.function.Supplier;
