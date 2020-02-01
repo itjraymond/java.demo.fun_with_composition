@@ -45,5 +45,13 @@ public class VehicleFactory_01 {
 
         System.out.println(greenCar.whatAmI());
         System.out.println(moto.whatAmI());
+
+        Vehicle truck;
+        try {
+            truck = vehicleFactory.create("Truck");
+            System.out.println("Will never print");
+        } catch (IllegalStateException e) {
+            System.out.println("EROOR: " + e.getMessage());
+        }
     }
 }
