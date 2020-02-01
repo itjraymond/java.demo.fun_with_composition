@@ -15,6 +15,8 @@ import java.util.function.Supplier;
  * 3. We are working with String.  no no no :-)
  *
  * What should we do?  Later, we will create a "Builder" (builder pattern)
+ *
+ * Disclaimer:  Some ideas derives from Remi Forax Reloaded talk.
  */
 public class VehicleFactory_01 {
     private final Map<String,Supplier<Vehicle>> suppliers = new HashMap<>();
