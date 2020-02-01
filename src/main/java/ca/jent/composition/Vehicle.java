@@ -2,11 +2,14 @@ package ca.jent.composition;
 
 import java.awt.*;
 
-abstract class Vehicle {
+/**
+ * Note: Bad idea to make an abstract class "public".  We will correct this later though as we evolve our example.
+ */
+public abstract class Vehicle {
 
     private Color color;
 
-    private Vehicle() {
+    public Vehicle() {
         this.color = Color.WHITE;
     }
 
@@ -23,6 +26,9 @@ abstract class Vehicle {
 
 class Car extends Vehicle {
 
+    public Car() {
+        super();
+    }
     public Car(Color color) {
         super(color);
     }
@@ -35,6 +41,9 @@ class Car extends Vehicle {
 
 class Moto extends Vehicle {
 
+    public Moto() {
+        super();
+    }
     public Moto(Color color) {
         super(color);
     }

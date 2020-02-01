@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 
 /**
@@ -12,9 +13,10 @@ import java.util.function.Function;
  */
 public class VehicleComposition {
 
+    private static Supplier<Vehicle> carSupplier = Car::new;
 
-    private static Function<Color,Vehicle> carSupplier = Car::new;
-    private static Function<Color,Vehicle> motoSupplier = Moto::new;
+    private static Function<Color,Vehicle> coloredCarSupplier = Car::new;
+    private static Function<Color,Vehicle> coloredMotoSupplier = Moto::new;
 //    private static Function<Integer, List<Vehicle>> createVehicles = v ->
 
     private static Function<Color,Vehicle> getRandomVehicle() {
@@ -22,9 +24,9 @@ public class VehicleComposition {
         int v = ThreadLocalRandom.current().nextInt(0,10);
 
         if (v % 2 == 0) {
-            return carSupplier;
+            return coloredCarSupplier;
         }
-        return motoSupplier;
+        return coloredMotoSupplier;
 
     }
     public static void main(String[] args) {
@@ -41,7 +43,9 @@ public class VehicleComposition {
         }
 
         Vehicle ve = f.apply(color);
-
         System.out.println(ve.whatAmI());
+
+        Vehicle defaultCar = carSupplier.get();
+        System.out.println(defaultCar.whatAmI());
     }
 }
