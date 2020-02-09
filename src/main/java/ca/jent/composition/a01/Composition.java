@@ -1,5 +1,9 @@
 package ca.jent.composition.a01;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -23,6 +27,16 @@ public class Composition {
         return (Function<T,U> f) -> (Function<U,V> g) -> (T x) -> g.apply(f.apply(x));
     }
 
+    // Here is a nice example of composition found in the "Functional Programming in Java" book.
+    // Having a list of prices, we want to apply a 9% tax and a fix shipping cost. Of course, we
+    // could use Stream API without function composition to get the same result but that wouldn't be fun.
+    // First, the function to apply the tax on each element.
+    static Function<Double,Double> applyTax = price -> price * 1.09;
+    // The function to apply fix shipping cost
+    static Function<Double,Double> applyShipping = price -> price + 7.99;
+    // Compose these two functions such that when iterating over the price list, only one operation is applied.
+    static Function<Double,Double> applyTotalCharge = applyTax.andThen(applyShipping);
+
     public static void main(String[] args) {
         System.out.println(
             Composition.<Integer, Double, String>higherCompose()
@@ -40,5 +54,10 @@ public class Composition {
                 .apply("10")
         );
         // My double is: 12.5
+
+        // Usage for applyTotalCharge
+        List<Double> prices = Arrays.asList(8.79, 15.49, 12.50, 21.69);
+        prices.stream().map(applyTotalCharge).forEach(System.out::println);
+        // [17.5711, 24.8741, 21.61500000002, 31.6321]
     }
 }
