@@ -3,6 +3,9 @@ package ca.jent.func;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * fun with recursion on the heap and using class within a lambda.
+ */
 public class Add {
 
     public static Function<Integer, Function<Integer, Integer>> add = x -> y -> {
@@ -16,7 +19,7 @@ public class Add {
     };
 
     public static void main(String[] args) {
-        System.out.println(add.apply(2).apply(13));
+        System.out.println(add.apply(298788878).apply(139867565));
     }
 }
 
