@@ -10,13 +10,13 @@ public class Add {
             Function<Integer, Function<Integer, TailCall<Integer>>> addHelper = a -> b ->
                     b == 0
                     ? TailCall.ret(a)
-                    : TailCall.sus( () -> this.addHelper.apply(a+1).apply(b-1));
+                    : TailCall.sus( () -> this.addHelper.apply(a+1).apply(b-1) );
         }
         return new AddHelper().addHelper.apply(x).apply(y).eval();
     };
 
     public static void main(String[] args) {
-        System.out.println(add.apply(2).apply(3));
+        System.out.println(add.apply(2).apply(13));
     }
 }
 
